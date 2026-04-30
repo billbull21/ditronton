@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:movie_dicoding_app/common/state_enum.dart';
 import 'package:movie_dicoding_app/common/utils.dart';
 import 'package:movie_dicoding_app/modules/movies/presentation/provider/watchlist_movie_notifier.dart';
@@ -48,6 +49,19 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 child: CircularProgressIndicator(),
               );
             } else if (data.watchlistState == RequestState.Loaded) {
+              if (data.watchlistMovies.isEmpty) {
+                return Center(
+                  key: Key('empty_message'),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(CupertinoIcons.cube_box, size: 64,),
+                      SizedBox(height: 8,),
+                      Text('No movies in watchlist'),
+                    ],
+                  ),
+                );
+              }
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final movie = data.watchlistMovies[index];
