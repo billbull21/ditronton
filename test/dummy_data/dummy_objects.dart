@@ -2,6 +2,9 @@ import 'package:movie_dicoding_app/modules/movies/data/models/movie_table.dart';
 import 'package:movie_dicoding_app/modules/movies/domain/entities/genre.dart';
 import 'package:movie_dicoding_app/modules/movies/domain/entities/movie.dart';
 import 'package:movie_dicoding_app/modules/movies/domain/entities/movie_detail.dart';
+import 'package:movie_dicoding_app/modules/tvs/data/models/tv_table.dart';
+import 'package:movie_dicoding_app/modules/tvs/domain/entities/tv.dart';
+import 'package:movie_dicoding_app/modules/tvs/domain/entities/tv_detail.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -56,4 +59,57 @@ final testMovieMap = {
   'overview': 'overview',
   'posterPath': 'posterPath',
   'title': 'title',
+};
+
+// TV test data
+
+final testTv = Tv(
+  backdropPath: '/path.jpg',
+  firstAirDate: DateTime(2021, 1, 1),
+  genreIds: [1, 2, 3],
+  id: 1,
+  name: 'Name',
+  originCountry: const ['US'],
+  originalLanguage: 'en',
+  originalName: 'Original Name',
+  overview: 'Overview',
+  popularity: 1.0,
+  posterPath: '/path.jpg',
+  voteAverage: 1.0,
+  voteCount: 1,
+);
+
+final testTvList = [testTv];
+
+final testTvDetail = TvDetail(
+  adult: false,
+  backdropPath: 'backdropPath',
+  genres: const [],
+  id: 1,
+  name: 'name',
+  overview: 'overview',
+  posterPath: 'posterPath',
+  voteAverage: 1.0,
+  voteCount: 1,
+);
+
+final testWatchlistTv = Tv.watchlist(
+  id: 1,
+  name: 'name',
+  posterPath: 'posterPath',
+  overview: 'overview',
+);
+
+final testTvTable = TvTable(
+  id: 1,
+  name: 'name',
+  posterPath: 'posterPath',
+  overview: 'overview',
+);
+
+final testTvMap = {
+  'id': 1,
+  'overview': 'overview',
+  'posterPath': 'posterPath',
+  'name': 'name',
 };
