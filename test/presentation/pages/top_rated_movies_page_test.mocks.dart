@@ -6,9 +6,9 @@ import 'dart:async' as _i6;
 import 'dart:ui' as _i7;
 
 import 'package:movie_dicoding_app/common/state_enum.dart' as _i4;
-import 'package:movie_dicoding_app/domain/entities/movie.dart' as _i5;
-import 'package:movie_dicoding_app/domain/usecases/get_top_rated_movies.dart' as _i2;
-import 'package:movie_dicoding_app/presentation/provider/top_rated_movies_notifier.dart'
+import 'package:movie_dicoding_app/modules/movies/domain/entities/movie.dart' as _i5;
+import 'package:movie_dicoding_app/modules/movies/domain/usecases/get_top_rated_movies.dart' as _i2;
+import 'package:movie_dicoding_app/modules/movies/presentation/provider/top_rated_movies_notifier.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 

@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:movie_dicoding_app/domain/entities/movie.dart';
-import 'package:movie_dicoding_app/domain/usecases/get_now_playing_movies.dart';
+import 'package:movie_dicoding_app/modules/movies/domain/entities/movie.dart';
+import 'package:movie_dicoding_app/modules/movies/domain/usecases/get_now_playing_movies.dart';
 import 'package:movie_dicoding_app/common/failure.dart';
-import 'package:movie_dicoding_app/domain/usecases/get_popular_movies.dart';
-import 'package:movie_dicoding_app/domain/usecases/get_top_rated_movies.dart';
-import 'package:movie_dicoding_app/presentation/provider/movie_list_notifier.dart';
+import 'package:movie_dicoding_app/modules/movies/domain/usecases/get_popular_movies.dart';
+import 'package:movie_dicoding_app/modules/movies/domain/usecases/get_top_rated_movies.dart';
+import 'package:movie_dicoding_app/modules/movies/presentation/provider/movie_list_notifier.dart';
 import 'package:movie_dicoding_app/common/state_enum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

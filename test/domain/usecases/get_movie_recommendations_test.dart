@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:movie_dicoding_app/domain/entities/movie.dart';
-import 'package:movie_dicoding_app/domain/usecases/get_movie_recommendations.dart';
+import 'package:movie_dicoding_app/modules/movies/domain/entities/movie.dart';
+import 'package:movie_dicoding_app/modules/movies/domain/usecases/get_movie_recommendations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:movie_dicoding_app/data/datasources/movie_remote_data_source.dart';
-import 'package:movie_dicoding_app/data/models/movie_detail_model.dart';
-import 'package:movie_dicoding_app/data/models/movie_response.dart';
+import 'package:movie_dicoding_app/modules/movies/data/datasources/movie_remote_data_source.dart';
+import 'package:movie_dicoding_app/modules/movies/data/models/movie_detail_model.dart';
+import 'package:movie_dicoding_app/modules/movies/data/models/movie_response.dart';
 import 'package:movie_dicoding_app/common/exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;

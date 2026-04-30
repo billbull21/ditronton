@@ -1,7 +1,7 @@
-import 'package:movie_dicoding_app/data/models/movie_table.dart';
-import 'package:movie_dicoding_app/domain/entities/genre.dart';
-import 'package:movie_dicoding_app/domain/entities/movie.dart';
-import 'package:movie_dicoding_app/domain/entities/movie_detail.dart';
+import 'package:movie_dicoding_app/modules/movies/data/models/movie_table.dart';
+import 'package:movie_dicoding_app/modules/movies/domain/entities/genre.dart';
+import 'package:movie_dicoding_app/modules/movies/domain/entities/movie.dart';
+import 'package:movie_dicoding_app/modules/movies/domain/entities/movie_detail.dart';
 
 final testMovie = Movie(
   adult: false,
