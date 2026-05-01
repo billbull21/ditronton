@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_dicoding_app/common/constants.dart';
 import 'package:movie_dicoding_app/common/utils.dart';
 import 'package:movie_dicoding_app/modules/movies/presentation/pages/movie_detail_page.dart';
@@ -5,34 +6,26 @@ import 'package:movie_dicoding_app/modules/movies/presentation/pages/popular_mov
 import 'package:movie_dicoding_app/modules/movies/presentation/pages/search_movie_page.dart';
 import 'package:movie_dicoding_app/modules/movies/presentation/pages/top_rated_movies_page.dart';
 import 'package:movie_dicoding_app/modules/movies/presentation/pages/watchlist_movies_page.dart';
-import 'package:movie_dicoding_app/modules/movies/presentation/provider/movie_detail_notifier.dart';
-import 'package:movie_dicoding_app/modules/movies/presentation/provider/movie_list_notifier.dart';
-import 'package:movie_dicoding_app/modules/movies/presentation/provider/movie_search_notifier.dart';
-import 'package:movie_dicoding_app/modules/movies/presentation/provider/popular_movies_notifier.dart';
-import 'package:movie_dicoding_app/modules/movies/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:movie_dicoding_app/modules/movies/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:movie_dicoding_app/modules/movies/presentation/bloc/detail/movie_detail_bloc.dart';
+import 'package:movie_dicoding_app/modules/movies/presentation/bloc/search/movie_search_bloc.dart';
+import 'package:movie_dicoding_app/modules/movies/presentation/bloc/watchlist/watchlist_movie_bloc.dart';
 import 'package:movie_dicoding_app/modules/tvs/presentation/pages/tv_detail_page.dart';
 import 'package:movie_dicoding_app/modules/tvs/presentation/pages/popular_tvs_page.dart';
-import 'package:movie_dicoding_app/modules/tvs/presentation/pages/search_page.dart';
+import 'package:movie_dicoding_app/modules/tvs/presentation/pages/search_tv_page.dart';
 import 'package:movie_dicoding_app/modules/tvs/presentation/pages/top_rated_tvs_page.dart';
 import 'package:movie_dicoding_app/modules/tvs/presentation/pages/watchlist_tv_page.dart';
-import 'package:movie_dicoding_app/modules/tvs/presentation/provider/tv_detail_notifier.dart';
-import 'package:movie_dicoding_app/modules/tvs/presentation/provider/tv_list_notifier.dart';
-import 'package:movie_dicoding_app/modules/tvs/presentation/provider/tv_search_notifier.dart';
-import 'package:movie_dicoding_app/modules/tvs/presentation/provider/popular_tvs_notifier.dart';
-import 'package:movie_dicoding_app/modules/tvs/presentation/provider/top_rated_tvs_notifier.dart';
-import 'package:movie_dicoding_app/modules/tvs/presentation/provider/watchlist_tv_notifier.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:movie_dicoding_app/modules/tvs/presentation/bloc/list/tv_list_bloc.dart';
+import 'package:movie_dicoding_app/modules/tvs/presentation/bloc/detail/tv_detail_bloc.dart';
+import 'package:movie_dicoding_app/modules/tvs/presentation/bloc/search/tv_search_bloc.dart';
+import 'package:movie_dicoding_app/modules/tvs/presentation/bloc/watchlist/watchlist_tv_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:movie_dicoding_app/injection.dart' as di;
 
 import 'home_page.dart';
+import 'modules/movies/presentation/bloc/list/movie_list_bloc.dart';
 import 'modules/movies/presentation/pages/about_page.dart';
 import 'modules/movies/presentation/pages/now_playing_movies_page.dart';
-import 'modules/movies/presentation/provider/now_playing_movies_notifier.dart';
 import 'modules/tvs/presentation/pages/now_playing_tvs_page.dart';
-import 'modules/tvs/presentation/provider/now_playing_tvs_notifier.dart';
 
 void main() {
   di.init();
@@ -40,55 +33,20 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieListNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieDetailNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<NowPlayingMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistMovieNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvListNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvDetailNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedTvsNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<NowPlayingTvsNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTvsNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistTvNotifier>(),
-        ),
+        BlocProvider(create: (_) => di.locator<MovieListBloc>()),
+        BlocProvider(create: (_) => di.locator<MovieDetailBloc>()),
+        BlocProvider(create: (_) => di.locator<MovieSearchBloc>()),
+        BlocProvider(create: (_) => di.locator<WatchlistMovieBloc>()),
+        BlocProvider(create: (_) => di.locator<TvListBloc>()),
+        BlocProvider(create: (_) => di.locator<TvDetailBloc>()),
+        BlocProvider(create: (_) => di.locator<TvSearchBloc>()),
+        BlocProvider(create: (_) => di.locator<WatchlistTvBloc>()),
       ],
       child: MaterialApp(
         title: 'DITRONTON',
@@ -142,13 +100,11 @@ class MyApp extends StatelessWidget {
             case AboutPage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => AboutPage());
             default:
-              return MaterialPageRoute(builder: (_) {
-                return Scaffold(
-                  body: Center(
-                    child: Text('Page not found :('),
-                  ),
-                );
-              });
+              return MaterialPageRoute(
+                builder: (_) {
+                  return Scaffold(body: Center(child: Text('Page not found :(')));
+                },
+              );
           }
         },
       ),

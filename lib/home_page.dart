@@ -5,7 +5,7 @@ import 'modules/movies/presentation/pages/home_movie_page.dart';
 import 'modules/movies/presentation/pages/search_movie_page.dart';
 import 'modules/movies/presentation/pages/watchlist_movies_page.dart';
 import 'modules/tvs/presentation/pages/home_tv_page.dart';
-import 'modules/tvs/presentation/pages/search_page.dart';
+import 'modules/tvs/presentation/pages/search_tv_page.dart';
 import 'modules/tvs/presentation/pages/watchlist_tv_page.dart';
 
 class HomePage extends StatefulWidget {

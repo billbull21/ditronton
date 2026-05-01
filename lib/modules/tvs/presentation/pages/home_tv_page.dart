@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:movie_dicoding_app/common/constants.dart';
 import 'package:movie_dicoding_app/modules/tvs/domain/entities/tv.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_dicoding_app/modules/tvs/presentation/bloc/list/tv_list_bloc.dart';
 import 'package:movie_dicoding_app/modules/tvs/presentation/pages/tv_detail_page.dart';
 import 'package:movie_dicoding_app/modules/tvs/presentation/pages/popular_tvs_page.dart';
 import 'package:movie_dicoding_app/modules/tvs/presentation/pages/top_rated_tvs_page.dart';
-import 'package:movie_dicoding_app/modules/tvs/presentation/provider/tv_list_notifier.dart';
 import 'package:movie_dicoding_app/common/state_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'now_playing_tvs_page.dart';
 
@@ -23,10 +23,10 @@ class _HomeTvPageState extends State<HomeTvPage> {
   void initState() {
     super.initState();
     Future.microtask(
-      () => Provider.of<TvListNotifier>(context, listen: false)
-        ..fetchNowPlayingTvs()
-        ..fetchPopularTvs()
-        ..fetchTopRatedTvs(),
+      () => context.read<TvListBloc>()
+        ..add(FetchNowPlayingTvs())
+        ..add(FetchPopularTvs())
+        ..add(FetchTopRatedTvs()),
     );
   }
 
@@ -43,13 +43,13 @@ class _HomeTvPageState extends State<HomeTvPage> {
               title: 'Airing Today',
               onTap: () => Navigator.pushNamed(context, NowPlayingTvsPage.ROUTE_NAME),
             ),
-            Consumer<TvListNotifier>(
-              builder: (context, data, child) {
-                final state = data.nowPlayingState;
-                if (state == RequestState.Loading) {
+            BlocBuilder<TvListBloc, TvListState>(
+              builder: (context, state) {
+                final nowPlayingState = state.nowPlayingState;
+                if (nowPlayingState == RequestState.Loading) {
                   return Center(child: CircularProgressIndicator());
-                } else if (state == RequestState.Loaded) {
-                  return MovieList(data.nowPlayingTvs);
+                } else if (nowPlayingState == RequestState.Loaded) {
+                  return MovieList(state.nowPlayingTvs);
                 } else {
                   return Text('Failed');
                 }
@@ -59,13 +59,13 @@ class _HomeTvPageState extends State<HomeTvPage> {
               title: 'Popular',
               onTap: () => Navigator.pushNamed(context, PopularTvsPage.ROUTE_NAME),
             ),
-            Consumer<TvListNotifier>(
-              builder: (context, data, child) {
-                final state = data.popularTvsState;
-                if (state == RequestState.Loading) {
+            BlocBuilder<TvListBloc, TvListState>(
+              builder: (context, state) {
+                final popularTvsState = state.popularTvsState;
+                if (popularTvsState == RequestState.Loading) {
                   return Center(child: CircularProgressIndicator());
-                } else if (state == RequestState.Loaded) {
-                  return MovieList(data.popularTvs);
+                } else if (popularTvsState == RequestState.Loaded) {
+                  return MovieList(state.popularTvs);
                 } else {
                   return Text('Failed');
                 }
@@ -75,13 +75,13 @@ class _HomeTvPageState extends State<HomeTvPage> {
               title: 'Top Rated',
               onTap: () => Navigator.pushNamed(context, TopRatedTvsPage.ROUTE_NAME),
             ),
-            Consumer<TvListNotifier>(
-              builder: (context, data, child) {
-                final state = data.topRatedTvsState;
-                if (state == RequestState.Loading) {
+            BlocBuilder<TvListBloc, TvListState>(
+              builder: (context, state) {
+                final topRatedTvsState = state.topRatedTvsState;
+                if (topRatedTvsState == RequestState.Loading) {
                   return Center(child: CircularProgressIndicator());
-                } else if (state == RequestState.Loaded) {
-                  return MovieList(data.topRatedTvs);
+                } else if (topRatedTvsState == RequestState.Loaded) {
+                  return MovieList(state.topRatedTvs);
                 } else {
                   return Text('Failed');
                 }
