@@ -42,3 +42,7 @@ class RemoveMovieFromWatchlist extends MovieDetailEvent {
   @override
   List<Object?> get props => [movie];
 }
+
+class ResetMessage extends MovieDetailEvent {
+  const ResetMessage();
+}

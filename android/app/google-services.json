@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1037812679802",
+    "project_id": "ditronton",
+    "storage_bucket": "ditronton.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037812679802:android:ee5749e565752b76f7a7c3",
+        "android_client_info": {
+          "package_name": "com.example.movie_dicoding_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeRjWiiTHBBJqe6_3cs-_9EwfoLavQ0Fg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

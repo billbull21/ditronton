@@ -19,7 +19,7 @@ class _WatchlistTvsPageState extends State<WatchlistTvsPage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<WatchlistTvBloc>().add(FetchWatchlistTvs()));
+    context.read<WatchlistTvBloc>().add(FetchWatchlistTvs());
   }
 
   @override
@@ -28,6 +28,7 @@ class _WatchlistTvsPageState extends State<WatchlistTvsPage> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
+  @override
   void didPopNext() {
     context.read<WatchlistTvBloc>().add(FetchWatchlistTvs());
   }

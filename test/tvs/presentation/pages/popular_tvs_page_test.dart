@@ -1,76 +1,82 @@
-import 'package:movie_dicoding_app/common/state_enum.dart';
-import 'package:movie_dicoding_app/modules/tvs/domain/entities/tv.dart';
-import 'package:movie_dicoding_app/modules/tvs/presentation/pages/popular_tvs_page.dart';
-import 'package:movie_dicoding_app/modules/tvs/presentation/provider/popular_tvs_notifier.dart';
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
+import 'package:movie_dicoding_app/common/state_enum.dart';
+import 'package:movie_dicoding_app/modules/tvs/presentation/bloc/list/tv_list_bloc.dart';
+import 'package:movie_dicoding_app/modules/tvs/presentation/pages/popular_tvs_page.dart';
 
 import '../../../dummy_data/dummy_objects.dart';
-import 'popular_tvs_page_test.mocks.dart';
 
-@GenerateMocks([PopularTvsNotifier])
+class MockTvListBloc
+    extends MockBloc<TvListEvent, TvListState>
+    implements TvListBloc {}
+
 void main() {
-  late MockPopularTvsNotifier mockNotifier;
+  late MockTvListBloc mockBloc;
 
   setUp(() {
-    mockNotifier = MockPopularTvsNotifier();
+    mockBloc = MockTvListBloc();
   });
 
-  Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<PopularTvsNotifier>.value(
-      value: mockNotifier,
-      child: MaterialApp(
-        home: body,
-      ),
+  tearDown(() {
+    mockBloc.close();
+  });
+
+  Widget makeTestableWidget(Widget body) {
+    return BlocProvider<TvListBloc>.value(
+      value: mockBloc,
+      child: MaterialApp(home: body),
     );
   }
 
   testWidgets('Page should display center progress bar when loading',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loading);
+      (tester) async {
+    whenListen<TvListState>(mockBloc, const Stream.empty(),
+        initialState:
+            const TvListState(popularTvsState: RequestState.Loading));
 
-    final progressBarFinder = find.byType(CircularProgressIndicator);
-    final centerFinder = find.byType(Center);
+    await tester.pumpWidget(makeTestableWidget(PopularTvsPage()));
 
-    await tester.pumpWidget(_makeTestableWidget(PopularTvsPage()));
-
-    expect(centerFinder, findsOneWidget);
-    expect(progressBarFinder, findsOneWidget);
+    expect(find.byType(Center), findsOneWidget);
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
   testWidgets('Page should display ListView when data is loaded',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.tvs).thenReturn(<Tv>[]);
+      (tester) async {
+    whenListen<TvListState>(mockBloc, const Stream.empty(),
+        initialState: const TvListState(
+          popularTvsState: RequestState.Loaded,
+          popularTvs: [],
+        ));
 
-    final listViewFinder = find.byType(ListView);
+    await tester.pumpWidget(makeTestableWidget(PopularTvsPage()));
 
-    await tester.pumpWidget(_makeTestableWidget(PopularTvsPage()));
-
-    expect(listViewFinder, findsOneWidget);
+    expect(find.byType(ListView), findsOneWidget);
   });
 
   testWidgets('Page should display text with message when Error',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Error);
-    when(mockNotifier.message).thenReturn('Error message');
+      (tester) async {
+    whenListen<TvListState>(mockBloc, const Stream.empty(),
+        initialState: const TvListState(
+          popularTvsState: RequestState.Error,
+          message: 'Error message',
+        ));
 
-    final textFinder = find.byKey(const Key('error_message'));
+    await tester.pumpWidget(makeTestableWidget(PopularTvsPage()));
 
-    await tester.pumpWidget(_makeTestableWidget(PopularTvsPage()));
-
-    expect(textFinder, findsOneWidget);
+    expect(find.byKey(const Key('error_message')), findsOneWidget);
   });
 
   testWidgets('Page should display list items when loaded with data',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.tvs).thenReturn([testTv]);
+      (tester) async {
+    whenListen<TvListState>(mockBloc, const Stream.empty(),
+        initialState: TvListState(
+          popularTvsState: RequestState.Loaded,
+          popularTvs: [testTv],
+        ));
 
-    await tester.pumpWidget(_makeTestableWidget(PopularTvsPage()));
+    await tester.pumpWidget(makeTestableWidget(PopularTvsPage()));
 
     expect(find.byType(ListView), findsOneWidget);
   });

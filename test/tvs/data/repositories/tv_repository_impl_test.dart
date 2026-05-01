@@ -6,7 +6,6 @@ import 'package:movie_dicoding_app/modules/tvs/data/models/tv_model.dart';
 import 'package:movie_dicoding_app/modules/tvs/data/repositories/tv_repository_impl.dart';
 import 'package:movie_dicoding_app/common/exception.dart';
 import 'package:movie_dicoding_app/common/failure.dart';
-import 'package:movie_dicoding_app/modules/tvs/domain/entities/tv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -43,24 +42,7 @@ void main() {
     voteCount: 1,
   );
 
-  final tTv = Tv(
-    backdropPath: '/path.jpg',
-    firstAirDate: DateTime(2021, 1, 1),
-    genreIds: const [1, 2, 3],
-    id: 1,
-    name: 'Name',
-    originCountry: const ['US'],
-    originalLanguage: 'en',
-    originalName: 'Original Name',
-    overview: 'Overview',
-    popularity: 1.0,
-    posterPath: '/path.jpg',
-    voteAverage: 1.0,
-    voteCount: 1,
-  );
-
   final tTvModelList = <TvModel>[tTvModel];
-  final tTvList = <Tv>[tTv];
 
   final tTvDetailResponse = TvDetailResponse(
     adult: false,

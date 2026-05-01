@@ -22,12 +22,10 @@ class _HomeTvPageState extends State<HomeTvPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => context.read<TvListBloc>()
-        ..add(FetchNowPlayingTvs())
-        ..add(FetchPopularTvs())
-        ..add(FetchTopRatedTvs()),
-    );
+    context.read<TvListBloc>()
+      ..add(FetchNowPlayingTvs())
+      ..add(FetchPopularTvs())
+      ..add(FetchTopRatedTvs());
   }
 
   @override

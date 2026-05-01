@@ -17,7 +17,7 @@ class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<TvListBloc>().add(FetchTopRatedTvs()));
+    context.read<TvListBloc>().add(FetchTopRatedTvs());
   }
 
   @override

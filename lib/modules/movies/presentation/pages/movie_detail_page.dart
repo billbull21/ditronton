@@ -23,10 +23,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      context.read<MovieDetailBloc>().add(FetchMovieDetail(widget.id));
-      context.read<MovieDetailBloc>().add(LoadMovieWatchlistStatus(widget.id));
-    });
+    context.read<MovieDetailBloc>()
+      ..add(FetchMovieDetail(widget.id))
+      ..add(LoadMovieWatchlistStatus(widget.id));
   }
 
   @override
@@ -40,6 +39,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           final message = state.watchlistMessage;
           if (message == MovieDetailBloc.watchlistAddSuccessMessage ||
               message == MovieDetailBloc.watchlistRemoveSuccessMessage) {
+            context.read<MovieDetailBloc>().add(ResetMessage());
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
           } else {
             showDialog(

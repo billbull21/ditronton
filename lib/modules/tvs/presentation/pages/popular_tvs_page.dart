@@ -17,7 +17,7 @@ class _PopularTvsPageState extends State<PopularTvsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<TvListBloc>().add(FetchPopularTvs()));
+    context.read<TvListBloc>().add(FetchPopularTvs());
   }
 
   @override

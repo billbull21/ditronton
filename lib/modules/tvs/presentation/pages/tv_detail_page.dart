@@ -23,10 +23,9 @@ class _TvDetailPageState extends State<TvDetailPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      context.read<TvDetailBloc>().add(FetchTvDetail(widget.id));
-      context.read<TvDetailBloc>().add(LoadTvWatchlistStatus(widget.id));
-    });
+    context.read<TvDetailBloc>()
+      ..add(FetchTvDetail(widget.id))
+      ..add(LoadTvWatchlistStatus(widget.id));
   }
 
   @override
@@ -40,6 +39,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
           final message = state.watchlistMessage;
           if (message == TvDetailBloc.watchlistAddSuccessMessage ||
               message == TvDetailBloc.watchlistRemoveSuccessMessage) {
+            context.read<TvDetailBloc>().add(ResetMessage());
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
           } else {
             showDialog(

@@ -14,8 +14,6 @@ void main() {
   group('DioInterceptor', () {
     test('onRequest should set baseUrl and Authorization header', () {
       final options = RequestOptions(path: '/movies');
-      bool didSetBaseUrl = false;
-      bool didSetAuth = false;
 
       final handler = RequestInterceptorHandler();
       // Call onRequest — it mutates options in-place, then calls handler.next

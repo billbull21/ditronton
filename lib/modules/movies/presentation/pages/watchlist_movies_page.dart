@@ -17,7 +17,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAwa
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<WatchlistMovieBloc>().add(FetchWatchlistMovies()));
+    context.read<WatchlistMovieBloc>().add(FetchWatchlistMovies());
   }
 
   @override
@@ -26,6 +26,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAwa
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
+  @override
   void didPopNext() {
     context.read<WatchlistMovieBloc>().add(FetchWatchlistMovies());
   }

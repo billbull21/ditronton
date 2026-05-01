@@ -18,7 +18,7 @@ class _NowPlayingMoviesPageState extends State<NowPlayingMoviesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<MovieListBloc>().add(FetchNowPlayingMovies()));
+    context.read<MovieListBloc>().add(FetchNowPlayingMovies());
   }
 
   @override

@@ -42,3 +42,5 @@ class RemoveTvFromWatchlist extends TvDetailEvent {
   @override
   List<Object?> get props => [tv];
 }
+
+class ResetMessage extends TvDetailEvent {}

@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_dicoding_app/common/constants.dart';
 import 'package:movie_dicoding_app/common/utils.dart';
@@ -21,14 +25,31 @@ import 'package:movie_dicoding_app/modules/tvs/presentation/bloc/watchlist/watch
 import 'package:flutter/material.dart';
 import 'package:movie_dicoding_app/injection.dart' as di;
 
+import 'firebase_options.dart';
 import 'home_page.dart';
 import 'modules/movies/presentation/bloc/list/movie_list_bloc.dart';
 import 'modules/movies/presentation/pages/about_page.dart';
 import 'modules/movies/presentation/pages/now_playing_movies_page.dart';
 import 'modules/tvs/presentation/pages/now_playing_tvs_page.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
   di.init();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  FlutterError.onError =
+      FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+  // Catch async errors outside Flutter framework (e.g. Future.error, Zone errors)
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
   runApp(MyApp());
 }
 

@@ -34,6 +34,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
     on<LoadMovieWatchlistStatus>(_onLoadMovieWatchlistStatus);
     on<AddMovieToWatchlist>(_onAddMovieToWatchlist);
     on<RemoveMovieFromWatchlist>(_onRemoveMovieFromWatchlist);
+    on<ResetMessage>(_onResetMessage);
   }
 
   Future<void> _onFetchMovieDetail(FetchMovieDetail event, Emitter<MovieDetailState> emit) async {
@@ -98,5 +99,12 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
 
     final watchlistStatus = await getWatchListStatus.execute(event.movie.id);
     emit(state.copyWith(watchlistMessage: message, isAddedToWatchlist: watchlistStatus));
+  }
+
+  Future<void> _onResetMessage(
+    ResetMessage event,
+    Emitter<MovieDetailState> emit,
+  ) async {
+    emit(state.copyWith(watchlistMessage: ''));
   }
 }

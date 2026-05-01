@@ -18,10 +18,12 @@ void main() {
   });
 
   group('DioClient', () {
-    test('constructor with isUnittest=false should add DioInterceptor', () {
+    test('constructor with isUnittest=false should add DioInterceptor', () async {
+      TestWidgetsFlutterBinding.ensureInitialized();
       // Using a real Dio so interceptors.add works correctly
       final realDio = Dio();
       final client = DioClient(dio: realDio, isUnittest: false);
+      expect(client, isA<DioClient>());
       expect(realDio.interceptors.length, greaterThan(0));
     });
 
