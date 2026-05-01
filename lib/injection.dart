@@ -43,11 +43,14 @@ import 'package:movie_dicoding_app/modules/tvs/presentation/bloc/watchlist/watch
 import 'package:get_it/get_it.dart';
 
 import 'common/network/dio_client.dart';
+import 'common/presentation/bloc/home_bloc.dart';
 import 'modules/movies/presentation/bloc/list/movie_list_bloc.dart';
 
 final locator = GetIt.instance;
 
 void init() {
+  // bloc - home
+  locator.registerFactory(() => HomeBloc());
   // bloc - movies
   locator.registerFactory(
     () => MovieListBloc(
