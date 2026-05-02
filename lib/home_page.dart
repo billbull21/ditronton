@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,6 +38,8 @@ class HomePage extends StatelessWidget {
                   title: Text('Movies'),
                   onTap: () {
                     Navigator.pop(context);
+                    // add event to record it in firebase analytics
+                    FirebaseAnalytics.instance.logEvent(name: 'change_page', parameters: {'page': 'movies'});
                     context.read<HomeBloc>().add(ChangePageEvent(
                       title: 'MOVIES',
                       page: HomeMoviePage(),
@@ -48,6 +51,8 @@ class HomePage extends StatelessWidget {
                   title: Text('TV Series'),
                   onTap: () {
                     Navigator.pop(context);
+                    // add event to record it in firebase analytics
+                    FirebaseAnalytics.instance.logEvent(name: 'change_page', parameters: {'page': 'tv_series'});
                     context.read<HomeBloc>().add(ChangePageEvent(
                       title: 'TV SERIES',
                       page: HomeTvPage(),
