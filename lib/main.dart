@@ -46,8 +46,7 @@ void main() async{
   // Enable Crashlytics collection in debug mode
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
-  FlutterError.onError =
-      FirebaseCrashlytics.instance.recordFlutterFatalError;
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
   // Catch async errors outside Flutter framework (e.g. Future.error, Zone errors)
   PlatformDispatcher.instance.onError = (error, stack) {
