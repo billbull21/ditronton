@@ -43,6 +43,9 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  // Enable Crashlytics collection in debug mode
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+
   FlutterError.onError =
       FirebaseCrashlytics.instance.recordFlutterFatalError;
 
